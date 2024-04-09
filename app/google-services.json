@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "400151297757",
+    "project_id": "pupolo",
+    "storage_bucket": "pupolo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400151297757:android:2e25b0fd26af7f04382534",
+        "android_client_info": {
+          "package_name": "com.example.pulopo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "400151297757-ihqig0e2ms1p6l3ejppo6g0g1tnqb76v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkffLv4ke95DUicqSh7bMNeGuuBWPHeP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "400151297757-ihqig0e2ms1p6l3ejppo6g0g1tnqb76v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
