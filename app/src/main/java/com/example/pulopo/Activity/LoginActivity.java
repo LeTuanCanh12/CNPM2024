@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.example.pulopo.R;
 import com.example.pulopo.Services.Post_Location_Service;
 import com.example.pulopo.Utils.UserUtil;
-import com.example.pulopo.model.Users;
+import com.example.pulopo.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase database;
     DatabaseReference myRef;
-    ArrayList<Users> listUser = new ArrayList<>();
+    ArrayList<User> listUser = new ArrayList<>();
 
     private static final int request_Code = 12;
     LocationManager locationManager;
@@ -138,10 +138,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Users users = snapshot.getValue(Users.class);
+                    User users = snapshot.getValue(User.class);
                     listUser.add(users);
                 }
-                for(Users s: listUser){
+                for(User s: listUser){
                         if(s.getUID().equals(firebaseAuth.getCurrentUser().getUid())){
                         UserUtil.userName = s.getUserName().toString().trim();
                         UserUtil.UID = firebaseAuth.getCurrentUser().getUid();
