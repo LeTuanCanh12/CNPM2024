@@ -1,12 +1,12 @@
 package com.example.pulopo.model;
 
-public class Users {
+public class User {
     String UID;
     String userName;
     double latLocation;
     double longLocation;
 
-    public Users(String UID, String userName, double latLocation, double longLocation) {
+    public User(String UID, String userName, double latLocation, double longLocation) {
         this.UID = UID;
         this.userName = userName;
         this.latLocation = latLocation;
@@ -14,7 +14,7 @@ public class Users {
     }
 
 
-    public Users() {
+    public User() {
     }
 
 
