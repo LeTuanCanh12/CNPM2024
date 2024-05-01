@@ -42,14 +42,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         User user=userList.get(position);
 //      holder.txtId.setText(user.getId()+ " ");
-        holder.txtUser.setText(user.getUsername());
+        holder.txtUser.setText(user.getUserName());
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int pos, boolean isLongClick) {
                 if(!isLongClick){
                     Intent intent=new Intent(context, ChatActivity.class);
-                    intent.putExtra("id",user.getId());
-                    intent.putExtra("username",user.getUsername());
+                    intent.putExtra("id",user.getUID());
+                    intent.putExtra("username",user.getUserName());
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }
