@@ -2,6 +2,7 @@ package com.example.pulopo.Retrofit;
 
 
 import com.example.pulopo.model.response.RegisterReponse;
+import com.example.pulopo.model.response.SendMessResponse;
 import com.example.pulopo.model.response.UserResponse;
 
 import io.reactivex.rxjava3.core.Observable;
@@ -20,4 +21,9 @@ public interface ApiServer {
                                          @Query("HoTen") String hoTen,
                                          @Query("Email") String email);
 
+    @POST("ChatInfo")
+    Observable<SendMessResponse> sendMessChat(@Query("SenderId") int senderId,
+                                              @Query("ReceiverId") int recieverId,
+                                              @Query("message") String message,
+                                              @Query("messageType") int messageType);
 }
