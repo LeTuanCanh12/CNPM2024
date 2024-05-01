@@ -1,6 +1,5 @@
 package com.example.pulopo.model.response;
 
-import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.UUID;
 

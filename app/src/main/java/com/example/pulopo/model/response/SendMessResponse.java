@@ -16,4 +16,3 @@ public class SendMessResponse {
     public void setMessage(String value) { this.message = value; }
 }
 
-
