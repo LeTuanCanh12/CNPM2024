@@ -84,6 +84,16 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ( (FileViewHolder) holder).txtmess.setText("Đã gửi tập tin");
             ( (FileViewHolder) holder).txttime.setText(chatMessageList.get(position).datetime);
 
+            ((FileViewHolder) holder).setItemClickListener(new ItemClickListener() {
+
+                @Override
+                public void onClick(View view, int pos, boolean isLongClick) {
+                    if(isLongClick){
+                        //tai file ve local
+                        downloadFile(tempPosition);
+                    }
+                }
+            });
         }
         // neu kieu du lieu la anh
         if(getItemViewType(position) == TYPE_IMG){
@@ -161,6 +171,26 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+    private void downloadFile(int position) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        String imgpath = "files/"+chatMessageList.get(position).mess;
+        StorageReference storageRef = storage.getReference().child(imgpath);
+
+        String localFilePath = "/storage/emulated/0/Download/Pulopo/";
+        String fileName = chatMessageList.get(position).mess.replace(","," ")
+                .replace("-", " ")
+                .replace(":", " ")
+                .trim().replaceAll("\\s+", "");
+        File localDirectory = new File(localFilePath,fileName);
+        storageRef.getFile(localDirectory).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(context, "Đã tải tập tin", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
     private void downloadImg(int tempPosition) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         String imgpath = "images/"+chatMessageList.get(tempPosition).mess;
