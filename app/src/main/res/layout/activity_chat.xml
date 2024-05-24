@@ -24,6 +24,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:src="@drawable/baseline_attach_file_24" />
+        <!--1.Click Icon Image-->
         <ImageView
             android:id="@+id/imagefile"
             android:layout_width="1dp"
