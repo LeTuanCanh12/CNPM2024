@@ -1,4 +1,3 @@
-
 package com.example.pulopo.model;
 
 import java.util.Date;
@@ -56,4 +55,3 @@ public class ChatMessage {
         this.dateObj = dateObj;
     }
 }
-

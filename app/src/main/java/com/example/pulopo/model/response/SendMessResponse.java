@@ -1,6 +1,3 @@
-// SendMessResponse.java
-
-// YApi QuickType插件生成，具体参考文档:https://plugins.jetbrains.com/plugin/18847-yapi-quicktype/documentation
 
 package com.example.pulopo.model.response;
 
@@ -18,10 +15,4 @@ public class SendMessResponse {
     public String getMessage() { return message; }
     public void setMessage(String value) { this.message = value; }
 }
-
-// Data.java
-
-// YApi QuickType插件生成，具体参考文档:https://plugins.jetbrains.com/plugin/18847-yapi-quicktype/documentation
-
-
 

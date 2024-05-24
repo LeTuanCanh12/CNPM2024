@@ -1,8 +1,6 @@
 package com.example.pulopo.Adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -14,16 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pulopo.Activity.ChatActivity;
-import com.example.pulopo.Activity.InfoActivity;
-import com.example.pulopo.Activity.LoginActivity;
 import com.example.pulopo.R;
 import com.example.pulopo.Retrofit.ApiServer;
 import com.example.pulopo.Retrofit.RetrofitClient;
-import com.example.pulopo.Utils.UserUtil;
 import com.example.pulopo.Utils.UtilsCommon;
 import com.example.pulopo.interfaceClick.ItemClickListener;
 import com.example.pulopo.model.ChatMessage;
@@ -32,8 +25,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -89,15 +80,16 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         // Kieu du lieu file
         if(getItemViewType(position) == TYPE_FILE){
-                int tempPosition = position;
-             ( (FileViewHolder) holder).txtmess.setText("Đã gửi tập tin");
+            int tempPosition = position;
+            ( (FileViewHolder) holder).txtmess.setText("Đã gửi tập tin");
             ( (FileViewHolder) holder).txttime.setText(chatMessageList.get(position).datetime);
+
             ((FileViewHolder) holder).setItemClickListener(new ItemClickListener() {
 
                 @Override
                 public void onClick(View view, int pos, boolean isLongClick) {
                     if(isLongClick){
-                    //tai file ve local
+                        //tai file ve local
                         downloadFile(tempPosition);
                     }
                 }
@@ -179,6 +171,26 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+    private void downloadFile(int position) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        String imgpath = "files/"+chatMessageList.get(position).mess;
+        StorageReference storageRef = storage.getReference().child(imgpath);
+
+        String localFilePath = "/storage/emulated/0/Download/Pulopo/";
+        String fileName = chatMessageList.get(position).mess.replace(","," ")
+                .replace("-", " ")
+                .replace(":", " ")
+                .trim().replaceAll("\\s+", "");
+        File localDirectory = new File(localFilePath,fileName);
+        storageRef.getFile(localDirectory).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(context, "Đã tải tập tin", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
     private void downloadImg(int tempPosition) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         String imgpath = "images/"+chatMessageList.get(tempPosition).mess;
@@ -199,27 +211,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             }
         });
-    }
-
-    private void downloadFile(int position) {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        String imgpath = "files/"+chatMessageList.get(position).mess;
-        StorageReference storageRef = storage.getReference().child(imgpath);
-
-            String localFilePath = "/storage/emulated/0/Download/Pulopo/";
-            String fileName = chatMessageList.get(position).mess.replace(","," ")
-                    .replace("-", " ")
-                    .replace(":", " ")
-                      .trim().replaceAll("\\s+", "");
-            File localDirectory = new File(localFilePath,fileName);
-            storageRef.getFile(localDirectory).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(context, "Đã tải tập tin", Toast.LENGTH_LONG).show();
-                }
-            });
-
-
     }
 
     private void deleteMess(String chatid) {
@@ -264,7 +255,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void clearData() {
-       chatMessageList.clear();
+        chatMessageList.clear();
     }
     class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView  txttime;

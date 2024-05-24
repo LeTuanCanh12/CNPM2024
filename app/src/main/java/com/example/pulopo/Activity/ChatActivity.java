@@ -61,7 +61,7 @@ public class ChatActivity extends AppCompatActivity {
     int iduser;
     String username;
     RecyclerView recyclerView;
-    ImageView imgSend, imgLocation, uploadImg,attachFile;
+    ImageView imgSend, imgLocation, uploadImg, attachFile;
     EditText edtMess;
     ChatAdapter adapter;
 
@@ -181,7 +181,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 if (number[0] >= 1) {
 
-                    list.subList(0,list.size()).clear();
+                    list.subList(0, list.size()).clear();
 
                     recyclerView.scrollToPosition(list.size());
                 }
@@ -240,31 +240,33 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
+
     // attach file
     private void openFilePicker() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");
         startActivityForResult(intent, PICK_FILE_REQUEST);
-        Log.e("sendFile","run");
+        Log.e("sendFile", "run");
     }
+
     private void uploadFileToFirebase(Uri fileUri) {
         StorageReference fileRef = storageReference.child("files/" + "pulopo_file_" + formatDate(new Date()));
         String fileName = fileRef.getName();
         UploadTask uploadTask = fileRef.putFile(fileUri);
         uploadTask.addOnSuccessListener(taskSnapshot -> {
             sendFileToServer(fileName);
-            Log.e("sendFile","up firebase");
+            Log.e("sendFile", "up firebase");
         }).addOnFailureListener(exception -> {
         });
     }
 
-    private void sendFileToServer(String fileName){
+    private void sendFileToServer(String fileName) {
         compositeDisposable.add(apiServer.sendMessChat(UserUtil.getId(), iduser, fileName, 3)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         userModel -> {
-                            Log.e("sendFile","up sv");
+                            Log.e("sendFile", "up sv");
                             Toast.makeText(getApplicationContext(), "Đã gửi tập tin", Toast.LENGTH_LONG).show();
                         },
                         throwable -> {
@@ -273,7 +275,9 @@ public class ChatActivity extends AppCompatActivity {
                         }
                 ));
     }
+
     //3.openImagePicker()
+
     //Image upload
     private void openImagePicker() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -294,13 +298,15 @@ public class ChatActivity extends AppCompatActivity {
 
             Uri selectedFileUri = data.getData();
             uploadFileToFirebase(selectedFileUri);
-            Log.e("sendFile","rs");
+            Log.e("sendFile", "rs");
         }
 
     }
 
 
+
 //5.uploadImagetoFireBase()
+
     private void uploadImageToFirebase(Uri imageUri) {
         // Create a reference to 'images/<FILENAME>'
         StorageReference imageRef = storageReference.child("images/" + formatDate(new Date()));
