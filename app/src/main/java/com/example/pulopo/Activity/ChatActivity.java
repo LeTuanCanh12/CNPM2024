@@ -214,7 +214,7 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-
+    //2.initView()
     private void initView() {
 
         recyclerView = findViewById(R.id.recycleview_chat);
@@ -273,12 +273,13 @@ public class ChatActivity extends AppCompatActivity {
                         }
                 ));
     }
+    //3.openImagePicker()
     //Image upload
     private void openImagePicker() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
-
+    //4.onActivityResult()
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -299,13 +300,13 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-
+//5.uploadImagetoFireBase()
     private void uploadImageToFirebase(Uri imageUri) {
         // Create a reference to 'images/<FILENAME>'
         StorageReference imageRef = storageReference.child("images/" + formatDate(new Date()));
 
         String fileName = imageRef.getName();
-
+    //6.putFile()
         // Upload the file to Firebase Storage
         UploadTask uploadTask = imageRef.putFile(imageUri);
 
@@ -320,13 +321,16 @@ public class ChatActivity extends AppCompatActivity {
             // ...
         });
     }
-
+    //7.sendImagetoServer()
     private void sendImageToServer(String path) {
-        compositeDisposable.add(apiServer.sendMessChat(UserUtil.getId(), iduser, path, 2)
+        //8.add()
+        compositeDisposable.add(//9.sendMessChat()
+                apiServer.sendMessChat(UserUtil.getId(), iduser, path, 2)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         userModel -> {
+                            //10.makeText()
                             Toast.makeText(getApplicationContext(), "Đã gửi ảnh", Toast.LENGTH_LONG).show();
                         },
                         throwable -> {
