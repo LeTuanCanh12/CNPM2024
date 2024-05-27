@@ -27,12 +27,14 @@ public interface ApiServer {
                                          @Query("Email") String email);
 
     @POST("ChatInfo")
+    // 4. sendMessChat() - (use case send mess)
     Observable<SendMessResponse> sendMessChat(@Query("SenderId") int senderId,
                                               @Query("ReceiverId") int recieverId,
                                               @Query("message") String message,
                                               @Query("messageType") int messageType);
 
     @GET("ChatInfo")
+    // 6. getChatByUser() -(use case send mess)
     Observable<ChatByUserResponse> getChatByUser(@Query("SenderId") int senderId,
                                                  @Query("ReceiverId") int recieverId,
                                                  @Query("page") int page);

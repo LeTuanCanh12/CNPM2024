@@ -92,6 +92,7 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
+    //2. initControl() - (use case send mess)
     private void initControl() {
         imgSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +112,7 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
+    //3. sendMessToServer() - (use case send mess)
     private void sendMessToServer() {
         String str_mess = edtMess.getText().toString().trim();
         inputGpt = str_mess;
@@ -137,6 +139,8 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+
+    //5. listenMess() - (use case send mess)
     private void listenMess() {
         //connect api chuyen ve list<ChatMess>
 

@@ -41,6 +41,7 @@
             android:layout_weight="1"
             android:src="@drawable/baseline_location_on_24" />
 
+        <!-- 1. Enter content message (use case send mess) -->
         <EditText
             android:id="@+id/edtinputtext"
             android:layout_width="10dp"

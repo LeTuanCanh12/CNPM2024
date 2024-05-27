@@ -77,6 +77,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
+    //7. onBindViewHolder() - (use case send mess)
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         // Kieu du lieu file
         if(getItemViewType(position) == TYPE_FILE){
@@ -135,7 +136,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             });
             ((ImageViewHolder) holder).txttime.setText(chatMessageList.get(position).datetime);
         }
-        // kieu du lieu tin nhan gui di
+        // 7. update UI (use case send mess)
         if(getItemViewType(position) == TYPE_SEND){
 
             if(chatMessageList.get(position).typeMess==1){
@@ -156,7 +157,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
         }
-        // kieu du lieu tin nhan nhan ve
         else{
             if(chatMessageList.get(position).typeMess==1){
                 ( (ReceviedViewHolder) holder).txtmess.setText("Đã chia sẻ một vị trí");
